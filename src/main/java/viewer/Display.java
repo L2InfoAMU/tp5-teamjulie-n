@@ -17,7 +17,6 @@ import java.util.ResourceBundle;
 public class Display implements Initializable {
     @FXML
     private Canvas canvas;
-
     private Image image;
     private ImageFactory imageFactory;
 
