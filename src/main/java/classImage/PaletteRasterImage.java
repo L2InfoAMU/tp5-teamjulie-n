@@ -2,29 +2,35 @@ package classImage;
 
 import image.Image;
 
-import java.awt.*;
+import java.awt.Color;
+import java.util.List;
+import java.util.Vector;
 
 public class PaletteRasterImage implements Image {
-    private Color color;
+    private List<Color> palette;
     private int width;
     private int height;
-    private Color[][] pixels;
+    private int[][] indexesOfColors;
 
     public PaletteRasterImage(Color color, int width, int height){
-        this.color = color;
         this.width = width;
         this.height = height;
         createRepresentation();
+        setPixelsColor(color);
+
     }
 
     public PaletteRasterImage(Color[][] pixels){
-        this.pixels = pixels;
+        width = pixels.length;
+        height = pixels[0].length;
         createRepresentation();
+        setPixelsColor(pixels);
     }
 
     public void createRepresentation(){
+        palette = new Vector<Color>();
+        palette = new indexesOfColors[width][height];
 
-        pixels = new Color[width][height];
         /*alloue la liste pour stocker la palette et la matrice représentant
         l’image (à utiliser dans le constructeur).*/
     }
@@ -40,7 +46,7 @@ public class PaletteRasterImage implements Image {
     }
 
     public Color getPixelColor(int x, int y) {
-        return pixels[y][x];
+        return indexesOfColors[y][x];
         /*retourne la couleur d’un pixel.*/
     }
 
@@ -55,23 +61,20 @@ public class PaletteRasterImage implements Image {
     }
 
     public void setPixelsColor(Color[][] pixels) {
-        this.pixels=pixels;
+
+
         /*met à jour les valeurs de couleurs de l’image
         en utilisant les valeurs de la matrice donnée en paramètre.*/
     }
 
     private void setPixelsColor(Color color) {
-        this.color = color;
-        /*change les valeurs de tous les pixels pour qu’ils
-        soient tous de la couleur donnée en paramètre.*/
+        for (int i = 0 ; i < width ; i++)
+            for (int j = 0 ; j < height ; j++)
+                setPixelColor(color,i,j);
     }
 
     public void setPixelColor(Color color, int x, int y) {
-        for (int i = 0 ; i < width ; i++)
-            for (int j = 0 ; j < height ; j++) {
-                if (pixels[y][x] != color)
-                    pixels[y][x] = color;
-            }
+
         /*fixe la couleur d’un pixel (en ajoutant
         la couleur à la palette si elle n’était pas dans la palette).*/
     }
